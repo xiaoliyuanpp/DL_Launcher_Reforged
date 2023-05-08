@@ -24,23 +24,15 @@ Partial Class Login
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.GroupGPTVersion = New System.Windows.Forms.GroupBox()
-        Me.CheckBW = New MaterialSkin.Controls.MaterialCheckbox()
+        Me.CheckNonEXE = New MaterialSkin.Controls.MaterialCheckbox()
+        Me.OptionAnthropic = New MaterialSkin.Controls.MaterialRadioButton()
+        Me.OptionGemini = New MaterialSkin.Controls.MaterialRadioButton()
+        Me.TextBaseUrl = New MaterialSkin.Controls.MaterialMaskedTextBox()
         Me.CheckStream = New MaterialSkin.Controls.MaterialCheckbox()
         Me.ComboCharacterSelect = New MaterialSkin.Controls.MaterialComboBox()
-        Me.GroupLogin = New System.Windows.Forms.GroupBox()
-        Me.GetCookie = New MaterialSkin.Controls.MaterialButton()
-        Me.TextOpenAIAcc = New MaterialSkin.Controls.MaterialMaskedTextBox()
-        Me.CheckIsPlus = New MaterialSkin.Controls.MaterialCheckbox()
-        Me.TextOpenAICookie = New MaterialSkin.Controls.MaterialMaskedTextBox()
-        Me.TextOpenAIPass = New MaterialSkin.Controls.MaterialMaskedTextBox()
-        Me.OptionCookie = New MaterialSkin.Controls.MaterialRadioButton()
-        Me.OptionAccAndPass = New MaterialSkin.Controls.MaterialRadioButton()
-        Me.GetAPI = New MaterialSkin.Controls.MaterialButton()
         Me.ComboModSelect = New MaterialSkin.Controls.MaterialComboBox()
-        Me.TextProxServer = New MaterialSkin.Controls.MaterialMaskedTextBox()
         Me.TextAPIKey = New MaterialSkin.Controls.MaterialMaskedTextBox()
         Me.OptionAPI = New MaterialSkin.Controls.MaterialRadioButton()
-        Me.OptionWeb = New MaterialSkin.Controls.MaterialRadioButton()
         Me.Launch = New MaterialSkin.Controls.MaterialButton()
         Me.ActionBar = New System.Windows.Forms.Label()
         Me.MaterialRadioButton1 = New MaterialSkin.Controls.MaterialRadioButton()
@@ -53,59 +45,142 @@ Partial Class Login
         Me.Editor = New MaterialSkin.Controls.MaterialButton()
         Me.IPBox = New System.Windows.Forms.TextBox()
         Me.PortBox = New System.Windows.Forms.TextBox()
-        Me.ComboIPSelect = New MaterialSkin.Controls.MaterialComboBox()
+        Me.CustomModelInput = New MaterialSkin.Controls.MaterialMaskedTextBox()
+        Me.SysEnvironment = New MaterialSkin.Controls.MaterialCheckbox()
+        Me.CustonModel = New MaterialSkin.Controls.MaterialCheckbox()
         Me.GroupGPTVersion.SuspendLayout()
-        Me.GroupLogin.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupGPTVersion
         '
         Me.GroupGPTVersion.BackColor = System.Drawing.SystemColors.Control
-        Me.GroupGPTVersion.Controls.Add(Me.CheckBW)
+        Me.GroupGPTVersion.Controls.Add(Me.CustonModel)
+        Me.GroupGPTVersion.Controls.Add(Me.SysEnvironment)
+        Me.GroupGPTVersion.Controls.Add(Me.CustomModelInput)
+        Me.GroupGPTVersion.Controls.Add(Me.CheckNonEXE)
+        Me.GroupGPTVersion.Controls.Add(Me.OptionAnthropic)
+        Me.GroupGPTVersion.Controls.Add(Me.OptionGemini)
+        Me.GroupGPTVersion.Controls.Add(Me.TextBaseUrl)
         Me.GroupGPTVersion.Controls.Add(Me.CheckStream)
         Me.GroupGPTVersion.Controls.Add(Me.ComboCharacterSelect)
-        Me.GroupGPTVersion.Controls.Add(Me.GroupLogin)
-        Me.GroupGPTVersion.Controls.Add(Me.GetAPI)
         Me.GroupGPTVersion.Controls.Add(Me.ComboModSelect)
-        Me.GroupGPTVersion.Controls.Add(Me.TextProxServer)
         Me.GroupGPTVersion.Controls.Add(Me.TextAPIKey)
         Me.GroupGPTVersion.Controls.Add(Me.OptionAPI)
-        Me.GroupGPTVersion.Controls.Add(Me.OptionWeb)
         Me.GroupGPTVersion.Font = New System.Drawing.Font("微软雅黑", 10.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.GroupGPTVersion.Location = New System.Drawing.Point(24, 88)
+        Me.GroupGPTVersion.Location = New System.Drawing.Point(36, 132)
+        Me.GroupGPTVersion.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupGPTVersion.Name = "GroupGPTVersion"
-        Me.GroupGPTVersion.Size = New System.Drawing.Size(424, 456)
+        Me.GroupGPTVersion.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupGPTVersion.Size = New System.Drawing.Size(636, 684)
         Me.GroupGPTVersion.TabIndex = 3
         Me.GroupGPTVersion.TabStop = False
-        Me.GroupGPTVersion.Text = "ChatGPT 版本"
+        Me.GroupGPTVersion.Text = "API类型"
         '
-        'CheckBW
+        'CheckNonEXE
         '
-        Me.CheckBW.Depth = 0
-        Me.CheckBW.Location = New System.Drawing.Point(304, 400)
-        Me.CheckBW.Margin = New System.Windows.Forms.Padding(0)
-        Me.CheckBW.MouseLocation = New System.Drawing.Point(-1, -1)
-        Me.CheckBW.MouseState = MaterialSkin.MouseState.HOVER
-        Me.CheckBW.Name = "CheckBW"
-        Me.CheckBW.ReadOnly = False
-        Me.CheckBW.Ripple = True
-        Me.CheckBW.Size = New System.Drawing.Size(99, 40)
-        Me.CheckBW.TabIndex = 38
-        Me.CheckBW.Text = "洗脑模式"
-        Me.ToolTip1.SetToolTip(Me.CheckBW, "每隔5句话发送一次设定，有助于解决ChatGPT忘了自己的设定的问题。（仅网页版可用）")
-        Me.CheckBW.UseVisualStyleBackColor = True
+        Me.CheckNonEXE.Depth = 0
+        Me.CheckNonEXE.Location = New System.Drawing.Point(36, 524)
+        Me.CheckNonEXE.Margin = New System.Windows.Forms.Padding(0)
+        Me.CheckNonEXE.MouseLocation = New System.Drawing.Point(-1, -1)
+        Me.CheckNonEXE.MouseState = MaterialSkin.MouseState.HOVER
+        Me.CheckNonEXE.Name = "CheckNonEXE"
+        Me.CheckNonEXE.ReadOnly = False
+        Me.CheckNonEXE.Ripple = True
+        Me.CheckNonEXE.Size = New System.Drawing.Size(148, 60)
+        Me.CheckNonEXE.TabIndex = 41
+        Me.CheckNonEXE.Text = "解释运行"
+        Me.ToolTip1.SetToolTip(Me.CheckNonEXE, "每一个完整句子都会生成一次语音，可以显著改善回答延迟问题")
+        Me.CheckNonEXE.UseVisualStyleBackColor = True
+        '
+        'OptionAnthropic
+        '
+        Me.OptionAnthropic.AutoSize = True
+        Me.OptionAnthropic.Depth = 0
+        Me.OptionAnthropic.Location = New System.Drawing.Point(233, 42)
+        Me.OptionAnthropic.Margin = New System.Windows.Forms.Padding(0)
+        Me.OptionAnthropic.MouseLocation = New System.Drawing.Point(-1, -1)
+        Me.OptionAnthropic.MouseState = MaterialSkin.MouseState.HOVER
+        Me.OptionAnthropic.Name = "OptionAnthropic"
+        Me.OptionAnthropic.Ripple = True
+        Me.OptionAnthropic.Size = New System.Drawing.Size(103, 37)
+        Me.OptionAnthropic.TabIndex = 40
+        Me.OptionAnthropic.TabStop = True
+        Me.OptionAnthropic.Text = "Anthropic"
+        Me.ToolTip1.SetToolTip(Me.OptionAnthropic, "使用OpenAI官方的API接入。不填APIKey会使用我们的APIKey")
+        Me.OptionAnthropic.UseVisualStyleBackColor = True
+        '
+        'OptionGemini
+        '
+        Me.OptionGemini.AutoSize = True
+        Me.OptionGemini.Depth = 0
+        Me.OptionGemini.Location = New System.Drawing.Point(437, 42)
+        Me.OptionGemini.Margin = New System.Windows.Forms.Padding(0)
+        Me.OptionGemini.MouseLocation = New System.Drawing.Point(-1, -1)
+        Me.OptionGemini.MouseState = MaterialSkin.MouseState.HOVER
+        Me.OptionGemini.Name = "OptionGemini"
+        Me.OptionGemini.Ripple = True
+        Me.OptionGemini.Size = New System.Drawing.Size(85, 37)
+        Me.OptionGemini.TabIndex = 39
+        Me.OptionGemini.TabStop = True
+        Me.OptionGemini.Text = "Gemini"
+        Me.ToolTip1.SetToolTip(Me.OptionGemini, "使用OpenAI官方的API接入。不填APIKey会使用我们的APIKey")
+        Me.OptionGemini.UseVisualStyleBackColor = True
+        '
+        'TextBaseUrl
+        '
+        Me.TextBaseUrl.AllowPromptAsInput = True
+        Me.TextBaseUrl.AnimateReadOnly = False
+        Me.TextBaseUrl.AsciiOnly = False
+        Me.TextBaseUrl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.TextBaseUrl.BeepOnError = False
+        Me.TextBaseUrl.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
+        Me.TextBaseUrl.Depth = 0
+        Me.TextBaseUrl.Font = New System.Drawing.Font("微软雅黑", 10.0!)
+        Me.TextBaseUrl.HidePromptOnLeave = False
+        Me.TextBaseUrl.HideSelection = True
+        Me.TextBaseUrl.Hint = "自定义Base URL(可选)"
+        Me.TextBaseUrl.InsertKeyMode = System.Windows.Forms.InsertKeyMode.[Default]
+        Me.TextBaseUrl.LeadingIcon = Nothing
+        Me.TextBaseUrl.Location = New System.Drawing.Point(36, 183)
+        Me.TextBaseUrl.Margin = New System.Windows.Forms.Padding(4)
+        Me.TextBaseUrl.Mask = ""
+        Me.TextBaseUrl.MaxLength = 32767
+        Me.TextBaseUrl.MouseState = MaterialSkin.MouseState.OUT
+        Me.TextBaseUrl.Name = "TextBaseUrl"
+        Me.TextBaseUrl.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.TextBaseUrl.PrefixSuffixText = Nothing
+        Me.TextBaseUrl.PromptChar = Global.Microsoft.VisualBasic.ChrW(95)
+        Me.TextBaseUrl.ReadOnly = False
+        Me.TextBaseUrl.RejectInputOnFirstFailure = False
+        Me.TextBaseUrl.ResetOnPrompt = True
+        Me.TextBaseUrl.ResetOnSpace = True
+        Me.TextBaseUrl.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.TextBaseUrl.SelectedText = ""
+        Me.TextBaseUrl.SelectionLength = 0
+        Me.TextBaseUrl.SelectionStart = 0
+        Me.TextBaseUrl.ShortcutsEnabled = True
+        Me.TextBaseUrl.Size = New System.Drawing.Size(564, 36)
+        Me.TextBaseUrl.SkipLiterals = True
+        Me.TextBaseUrl.TabIndex = 38
+        Me.TextBaseUrl.TabStop = False
+        Me.TextBaseUrl.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
+        Me.TextBaseUrl.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
+        Me.TextBaseUrl.TrailingIcon = Nothing
+        Me.TextBaseUrl.UseSystemPasswordChar = False
+        Me.TextBaseUrl.UseTallSize = False
+        Me.TextBaseUrl.ValidatingType = Nothing
         '
         'CheckStream
         '
         Me.CheckStream.Depth = 0
-        Me.CheckStream.Location = New System.Drawing.Point(200, 400)
+        Me.CheckStream.Location = New System.Drawing.Point(300, 600)
         Me.CheckStream.Margin = New System.Windows.Forms.Padding(0)
         Me.CheckStream.MouseLocation = New System.Drawing.Point(-1, -1)
         Me.CheckStream.MouseState = MaterialSkin.MouseState.HOVER
         Me.CheckStream.Name = "CheckStream"
         Me.CheckStream.ReadOnly = False
         Me.CheckStream.Ripple = True
-        Me.CheckStream.Size = New System.Drawing.Size(99, 40)
+        Me.CheckStream.Size = New System.Drawing.Size(148, 60)
         Me.CheckStream.TabIndex = 37
         Me.CheckStream.Text = "流式语音"
         Me.ToolTip1.SetToolTip(Me.CheckStream, "每一个完整句子都会生成一次语音，可以显著改善回答延迟问题")
@@ -126,259 +201,14 @@ Partial Class Login
         Me.ComboCharacterSelect.Hint = "角色选择"
         Me.ComboCharacterSelect.IntegralHeight = False
         Me.ComboCharacterSelect.ItemHeight = 43
-        Me.ComboCharacterSelect.Location = New System.Drawing.Point(24, 392)
+        Me.ComboCharacterSelect.Location = New System.Drawing.Point(36, 588)
+        Me.ComboCharacterSelect.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboCharacterSelect.MaxDropDownItems = 4
         Me.ComboCharacterSelect.MouseState = MaterialSkin.MouseState.OUT
         Me.ComboCharacterSelect.Name = "ComboCharacterSelect"
-        Me.ComboCharacterSelect.Size = New System.Drawing.Size(168, 49)
+        Me.ComboCharacterSelect.Size = New System.Drawing.Size(250, 49)
         Me.ComboCharacterSelect.StartIndex = 0
         Me.ComboCharacterSelect.TabIndex = 36
-        '
-        'GroupLogin
-        '
-        Me.GroupLogin.BackColor = System.Drawing.SystemColors.Control
-        Me.GroupLogin.Controls.Add(Me.GetCookie)
-        Me.GroupLogin.Controls.Add(Me.TextOpenAIAcc)
-        Me.GroupLogin.Controls.Add(Me.CheckIsPlus)
-        Me.GroupLogin.Controls.Add(Me.TextOpenAICookie)
-        Me.GroupLogin.Controls.Add(Me.TextOpenAIPass)
-        Me.GroupLogin.Controls.Add(Me.OptionCookie)
-        Me.GroupLogin.Controls.Add(Me.OptionAccAndPass)
-        Me.GroupLogin.Font = New System.Drawing.Font("微软雅黑", 10.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.GroupLogin.Location = New System.Drawing.Point(16, 72)
-        Me.GroupLogin.Name = "GroupLogin"
-        Me.GroupLogin.Size = New System.Drawing.Size(392, 208)
-        Me.GroupLogin.TabIndex = 26
-        Me.GroupLogin.TabStop = False
-        Me.GroupLogin.Text = "登录方式"
-        '
-        'GetCookie
-        '
-        Me.GetCookie.AutoSize = False
-        Me.GetCookie.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.GetCookie.CharacterCasing = MaterialSkin.Controls.MaterialButton.CharacterCasingEnum.Lower
-        Me.GetCookie.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.[Default]
-        Me.GetCookie.Depth = 0
-        Me.GetCookie.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.GetCookie.HighEmphasis = True
-        Me.GetCookie.Icon = Nothing
-        Me.GetCookie.Location = New System.Drawing.Point(16, 120)
-        Me.GetCookie.Margin = New System.Windows.Forms.Padding(4, 6, 4, 6)
-        Me.GetCookie.MouseState = MaterialSkin.MouseState.HOVER
-        Me.GetCookie.Name = "GetCookie"
-        Me.GetCookie.NoAccentTextColor = System.Drawing.Color.Empty
-        Me.GetCookie.Size = New System.Drawing.Size(360, 40)
-        Me.GetCookie.TabIndex = 16
-        Me.GetCookie.Text = "如何获取cookie"
-        Me.GetCookie.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained
-        Me.GetCookie.UseAccentColor = False
-        Me.GetCookie.UseVisualStyleBackColor = True
-        Me.GetCookie.Visible = False
-        '
-        'TextOpenAIAcc
-        '
-        Me.TextOpenAIAcc.AllowPromptAsInput = True
-        Me.TextOpenAIAcc.AnimateReadOnly = False
-        Me.TextOpenAIAcc.AsciiOnly = False
-        Me.TextOpenAIAcc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.TextOpenAIAcc.BeepOnError = False
-        Me.TextOpenAIAcc.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
-        Me.TextOpenAIAcc.Depth = 0
-        Me.TextOpenAIAcc.Enabled = False
-        Me.TextOpenAIAcc.Font = New System.Drawing.Font("微软雅黑", 10.0!)
-        Me.TextOpenAIAcc.HidePromptOnLeave = False
-        Me.TextOpenAIAcc.HideSelection = True
-        Me.TextOpenAIAcc.Hint = "openAI 账号（暂不可用）"
-        Me.TextOpenAIAcc.InsertKeyMode = System.Windows.Forms.InsertKeyMode.[Default]
-        Me.TextOpenAIAcc.LeadingIcon = Nothing
-        Me.TextOpenAIAcc.Location = New System.Drawing.Point(16, 72)
-        Me.TextOpenAIAcc.Mask = ""
-        Me.TextOpenAIAcc.MaxLength = 32767
-        Me.TextOpenAIAcc.MouseState = MaterialSkin.MouseState.OUT
-        Me.TextOpenAIAcc.Name = "TextOpenAIAcc"
-        Me.TextOpenAIAcc.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.TextOpenAIAcc.PrefixSuffixText = Nothing
-        Me.TextOpenAIAcc.PromptChar = Global.Microsoft.VisualBasic.ChrW(95)
-        Me.TextOpenAIAcc.ReadOnly = False
-        Me.TextOpenAIAcc.RejectInputOnFirstFailure = False
-        Me.TextOpenAIAcc.ResetOnPrompt = True
-        Me.TextOpenAIAcc.ResetOnSpace = True
-        Me.TextOpenAIAcc.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.TextOpenAIAcc.SelectedText = ""
-        Me.TextOpenAIAcc.SelectionLength = 0
-        Me.TextOpenAIAcc.SelectionStart = 0
-        Me.TextOpenAIAcc.ShortcutsEnabled = True
-        Me.TextOpenAIAcc.Size = New System.Drawing.Size(360, 36)
-        Me.TextOpenAIAcc.SkipLiterals = True
-        Me.TextOpenAIAcc.TabIndex = 14
-        Me.TextOpenAIAcc.TabStop = False
-        Me.TextOpenAIAcc.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
-        Me.TextOpenAIAcc.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
-        Me.TextOpenAIAcc.TrailingIcon = Nothing
-        Me.TextOpenAIAcc.UseSystemPasswordChar = False
-        Me.TextOpenAIAcc.UseTallSize = False
-        Me.TextOpenAIAcc.ValidatingType = Nothing
-        '
-        'CheckIsPlus
-        '
-        Me.CheckIsPlus.AutoSize = True
-        Me.CheckIsPlus.Depth = 0
-        Me.CheckIsPlus.Enabled = False
-        Me.CheckIsPlus.Location = New System.Drawing.Point(16, 165)
-        Me.CheckIsPlus.Margin = New System.Windows.Forms.Padding(0)
-        Me.CheckIsPlus.MouseLocation = New System.Drawing.Point(-1, -1)
-        Me.CheckIsPlus.MouseState = MaterialSkin.MouseState.HOVER
-        Me.CheckIsPlus.Name = "CheckIsPlus"
-        Me.CheckIsPlus.ReadOnly = False
-        Me.CheckIsPlus.Ripple = True
-        Me.CheckIsPlus.Size = New System.Drawing.Size(194, 37)
-        Me.CheckIsPlus.TabIndex = 13
-        Me.CheckIsPlus.Text = "Plus账号（暂不可用）"
-        Me.ToolTip1.SetToolTip(Me.CheckIsPlus, "请在开始之前确保你的网络可以访问chatGPT")
-        Me.CheckIsPlus.UseVisualStyleBackColor = True
-        '
-        'TextOpenAICookie
-        '
-        Me.TextOpenAICookie.AllowPromptAsInput = True
-        Me.TextOpenAICookie.AnimateReadOnly = False
-        Me.TextOpenAICookie.AsciiOnly = False
-        Me.TextOpenAICookie.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.TextOpenAICookie.BeepOnError = False
-        Me.TextOpenAICookie.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
-        Me.TextOpenAICookie.Depth = 0
-        Me.TextOpenAICookie.Font = New System.Drawing.Font("微软雅黑", 10.0!)
-        Me.TextOpenAICookie.HidePromptOnLeave = False
-        Me.TextOpenAICookie.HideSelection = True
-        Me.TextOpenAICookie.Hint = "openAI Cookie"
-        Me.TextOpenAICookie.InsertKeyMode = System.Windows.Forms.InsertKeyMode.[Default]
-        Me.TextOpenAICookie.LeadingIcon = Nothing
-        Me.TextOpenAICookie.Location = New System.Drawing.Point(16, 72)
-        Me.TextOpenAICookie.Mask = ""
-        Me.TextOpenAICookie.MaxLength = 32767
-        Me.TextOpenAICookie.MouseState = MaterialSkin.MouseState.OUT
-        Me.TextOpenAICookie.Name = "TextOpenAICookie"
-        Me.TextOpenAICookie.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.TextOpenAICookie.PrefixSuffixText = Nothing
-        Me.TextOpenAICookie.PromptChar = Global.Microsoft.VisualBasic.ChrW(95)
-        Me.TextOpenAICookie.ReadOnly = False
-        Me.TextOpenAICookie.RejectInputOnFirstFailure = False
-        Me.TextOpenAICookie.ResetOnPrompt = True
-        Me.TextOpenAICookie.ResetOnSpace = True
-        Me.TextOpenAICookie.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.TextOpenAICookie.SelectedText = ""
-        Me.TextOpenAICookie.SelectionLength = 0
-        Me.TextOpenAICookie.SelectionStart = 0
-        Me.TextOpenAICookie.ShortcutsEnabled = True
-        Me.TextOpenAICookie.Size = New System.Drawing.Size(360, 36)
-        Me.TextOpenAICookie.SkipLiterals = True
-        Me.TextOpenAICookie.TabIndex = 11
-        Me.TextOpenAICookie.TabStop = False
-        Me.TextOpenAICookie.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
-        Me.TextOpenAICookie.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
-        Me.TextOpenAICookie.TrailingIcon = Nothing
-        Me.TextOpenAICookie.UseSystemPasswordChar = False
-        Me.TextOpenAICookie.UseTallSize = False
-        Me.TextOpenAICookie.ValidatingType = Nothing
-        '
-        'TextOpenAIPass
-        '
-        Me.TextOpenAIPass.AllowPromptAsInput = True
-        Me.TextOpenAIPass.AnimateReadOnly = False
-        Me.TextOpenAIPass.AsciiOnly = False
-        Me.TextOpenAIPass.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.TextOpenAIPass.BeepOnError = False
-        Me.TextOpenAIPass.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
-        Me.TextOpenAIPass.Depth = 0
-        Me.TextOpenAIPass.Enabled = False
-        Me.TextOpenAIPass.Font = New System.Drawing.Font("微软雅黑", 10.0!)
-        Me.TextOpenAIPass.HidePromptOnLeave = False
-        Me.TextOpenAIPass.HideSelection = True
-        Me.TextOpenAIPass.Hint = "openAI 密码（暂不可用）"
-        Me.TextOpenAIPass.InsertKeyMode = System.Windows.Forms.InsertKeyMode.[Default]
-        Me.TextOpenAIPass.LeadingIcon = Nothing
-        Me.TextOpenAIPass.Location = New System.Drawing.Point(16, 120)
-        Me.TextOpenAIPass.Mask = ""
-        Me.TextOpenAIPass.MaxLength = 32767
-        Me.TextOpenAIPass.MouseState = MaterialSkin.MouseState.OUT
-        Me.TextOpenAIPass.Name = "TextOpenAIPass"
-        Me.TextOpenAIPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.TextOpenAIPass.PrefixSuffixText = Nothing
-        Me.TextOpenAIPass.PromptChar = Global.Microsoft.VisualBasic.ChrW(95)
-        Me.TextOpenAIPass.ReadOnly = False
-        Me.TextOpenAIPass.RejectInputOnFirstFailure = False
-        Me.TextOpenAIPass.ResetOnPrompt = True
-        Me.TextOpenAIPass.ResetOnSpace = True
-        Me.TextOpenAIPass.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.TextOpenAIPass.SelectedText = ""
-        Me.TextOpenAIPass.SelectionLength = 0
-        Me.TextOpenAIPass.SelectionStart = 0
-        Me.TextOpenAIPass.ShortcutsEnabled = True
-        Me.TextOpenAIPass.Size = New System.Drawing.Size(360, 36)
-        Me.TextOpenAIPass.SkipLiterals = True
-        Me.TextOpenAIPass.TabIndex = 8
-        Me.TextOpenAIPass.TabStop = False
-        Me.TextOpenAIPass.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
-        Me.TextOpenAIPass.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
-        Me.TextOpenAIPass.TrailingIcon = Nothing
-        Me.TextOpenAIPass.UseSystemPasswordChar = False
-        Me.TextOpenAIPass.UseTallSize = False
-        Me.TextOpenAIPass.ValidatingType = Nothing
-        '
-        'OptionCookie
-        '
-        Me.OptionCookie.AutoSize = True
-        Me.OptionCookie.Depth = 0
-        Me.OptionCookie.Location = New System.Drawing.Point(64, 24)
-        Me.OptionCookie.Margin = New System.Windows.Forms.Padding(0)
-        Me.OptionCookie.MouseLocation = New System.Drawing.Point(-1, -1)
-        Me.OptionCookie.MouseState = MaterialSkin.MouseState.HOVER
-        Me.OptionCookie.Name = "OptionCookie"
-        Me.OptionCookie.Ripple = True
-        Me.OptionCookie.Size = New System.Drawing.Size(88, 37)
-        Me.OptionCookie.TabIndex = 4
-        Me.OptionCookie.TabStop = True
-        Me.OptionCookie.Text = "Cookie"
-        Me.ToolTip1.SetToolTip(Me.OptionCookie, "使用cookie登录")
-        Me.OptionCookie.UseVisualStyleBackColor = True
-        '
-        'OptionAccAndPass
-        '
-        Me.OptionAccAndPass.AutoSize = True
-        Me.OptionAccAndPass.Checked = True
-        Me.OptionAccAndPass.Depth = 0
-        Me.OptionAccAndPass.Location = New System.Drawing.Point(240, 24)
-        Me.OptionAccAndPass.Margin = New System.Windows.Forms.Padding(0)
-        Me.OptionAccAndPass.MouseLocation = New System.Drawing.Point(-1, -1)
-        Me.OptionAccAndPass.MouseState = MaterialSkin.MouseState.HOVER
-        Me.OptionAccAndPass.Name = "OptionAccAndPass"
-        Me.OptionAccAndPass.Ripple = True
-        Me.OptionAccAndPass.Size = New System.Drawing.Size(99, 37)
-        Me.OptionAccAndPass.TabIndex = 3
-        Me.OptionAccAndPass.TabStop = True
-        Me.OptionAccAndPass.Text = "账号密码"
-        Me.ToolTip1.SetToolTip(Me.OptionAccAndPass, "使用账号密码登录（暂不可用）")
-        Me.OptionAccAndPass.UseVisualStyleBackColor = True
-        '
-        'GetAPI
-        '
-        Me.GetAPI.AutoSize = False
-        Me.GetAPI.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.GetAPI.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.[Default]
-        Me.GetAPI.Depth = 0
-        Me.GetAPI.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.GetAPI.HighEmphasis = True
-        Me.GetAPI.Icon = Nothing
-        Me.GetAPI.Location = New System.Drawing.Point(24, 120)
-        Me.GetAPI.Margin = New System.Windows.Forms.Padding(4, 6, 4, 6)
-        Me.GetAPI.MouseState = MaterialSkin.MouseState.HOVER
-        Me.GetAPI.Name = "GetAPI"
-        Me.GetAPI.NoAccentTextColor = System.Drawing.Color.Empty
-        Me.GetAPI.Size = New System.Drawing.Size(376, 40)
-        Me.GetAPI.TabIndex = 25
-        Me.GetAPI.Text = "如何获取API"
-        Me.GetAPI.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained
-        Me.GetAPI.UseAccentColor = False
-        Me.GetAPI.UseVisualStyleBackColor = True
         '
         'ComboModSelect
         '
@@ -395,58 +225,15 @@ Partial Class Login
         Me.ComboModSelect.Hint = "模型选择"
         Me.ComboModSelect.IntegralHeight = False
         Me.ComboModSelect.ItemHeight = 29
-        Me.ComboModSelect.Location = New System.Drawing.Point(24, 344)
+        Me.ComboModSelect.Location = New System.Drawing.Point(36, 263)
+        Me.ComboModSelect.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboModSelect.MaxDropDownItems = 4
         Me.ComboModSelect.MouseState = MaterialSkin.MouseState.OUT
         Me.ComboModSelect.Name = "ComboModSelect"
-        Me.ComboModSelect.Size = New System.Drawing.Size(376, 35)
+        Me.ComboModSelect.Size = New System.Drawing.Size(562, 35)
         Me.ComboModSelect.StartIndex = 0
         Me.ComboModSelect.TabIndex = 24
         Me.ComboModSelect.UseTallSize = False
-        '
-        'TextProxServer
-        '
-        Me.TextProxServer.AllowPromptAsInput = True
-        Me.TextProxServer.AnimateReadOnly = False
-        Me.TextProxServer.AsciiOnly = False
-        Me.TextProxServer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.TextProxServer.BeepOnError = False
-        Me.TextProxServer.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
-        Me.TextProxServer.Depth = 0
-        Me.TextProxServer.Font = New System.Drawing.Font("微软雅黑", 10.0!)
-        Me.TextProxServer.HidePromptOnLeave = False
-        Me.TextProxServer.HideSelection = True
-        Me.TextProxServer.Hint = "代理（可不填，连接前请确保你的网路能访问chatGPT）"
-        Me.TextProxServer.InsertKeyMode = System.Windows.Forms.InsertKeyMode.[Default]
-        Me.TextProxServer.LeadingIcon = Nothing
-        Me.TextProxServer.Location = New System.Drawing.Point(24, 296)
-        Me.TextProxServer.Mask = ""
-        Me.TextProxServer.MaxLength = 32767
-        Me.TextProxServer.MouseState = MaterialSkin.MouseState.OUT
-        Me.TextProxServer.Name = "TextProxServer"
-        Me.TextProxServer.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.TextProxServer.PrefixSuffixText = Nothing
-        Me.TextProxServer.PromptChar = Global.Microsoft.VisualBasic.ChrW(95)
-        Me.TextProxServer.ReadOnly = False
-        Me.TextProxServer.RejectInputOnFirstFailure = False
-        Me.TextProxServer.ResetOnPrompt = True
-        Me.TextProxServer.ResetOnSpace = True
-        Me.TextProxServer.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.TextProxServer.SelectedText = ""
-        Me.TextProxServer.SelectionLength = 0
-        Me.TextProxServer.SelectionStart = 0
-        Me.TextProxServer.ShortcutsEnabled = True
-        Me.TextProxServer.Size = New System.Drawing.Size(376, 36)
-        Me.TextProxServer.SkipLiterals = True
-        Me.TextProxServer.TabIndex = 22
-        Me.TextProxServer.TabStop = False
-        Me.TextProxServer.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
-        Me.TextProxServer.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
-        Me.ToolTip1.SetToolTip(Me.TextProxServer, "请在开始之前确保你的网络可以访问chatGPT")
-        Me.TextProxServer.TrailingIcon = Nothing
-        Me.TextProxServer.UseSystemPasswordChar = False
-        Me.TextProxServer.UseTallSize = False
-        Me.TextProxServer.ValidatingType = Nothing
         '
         'TextAPIKey
         '
@@ -463,7 +250,8 @@ Partial Class Login
         Me.TextAPIKey.Hint = "API Key"
         Me.TextAPIKey.InsertKeyMode = System.Windows.Forms.InsertKeyMode.[Default]
         Me.TextAPIKey.LeadingIcon = Nothing
-        Me.TextAPIKey.Location = New System.Drawing.Point(24, 72)
+        Me.TextAPIKey.Location = New System.Drawing.Point(36, 108)
+        Me.TextAPIKey.Margin = New System.Windows.Forms.Padding(4)
         Me.TextAPIKey.Mask = ""
         Me.TextAPIKey.MaxLength = 32767
         Me.TextAPIKey.MouseState = MaterialSkin.MouseState.OUT
@@ -480,7 +268,7 @@ Partial Class Login
         Me.TextAPIKey.SelectionLength = 0
         Me.TextAPIKey.SelectionStart = 0
         Me.TextAPIKey.ShortcutsEnabled = True
-        Me.TextAPIKey.Size = New System.Drawing.Size(376, 36)
+        Me.TextAPIKey.Size = New System.Drawing.Size(564, 36)
         Me.TextAPIKey.SkipLiterals = True
         Me.TextAPIKey.TabIndex = 18
         Me.TextAPIKey.TabStop = False
@@ -495,36 +283,18 @@ Partial Class Login
         '
         Me.OptionAPI.AutoSize = True
         Me.OptionAPI.Depth = 0
-        Me.OptionAPI.Location = New System.Drawing.Point(256, 24)
+        Me.OptionAPI.Location = New System.Drawing.Point(36, 42)
         Me.OptionAPI.Margin = New System.Windows.Forms.Padding(0)
         Me.OptionAPI.MouseLocation = New System.Drawing.Point(-1, -1)
         Me.OptionAPI.MouseState = MaterialSkin.MouseState.HOVER
         Me.OptionAPI.Name = "OptionAPI"
         Me.OptionAPI.Ripple = True
-        Me.OptionAPI.Size = New System.Drawing.Size(77, 37)
+        Me.OptionAPI.Size = New System.Drawing.Size(86, 37)
         Me.OptionAPI.TabIndex = 4
         Me.OptionAPI.TabStop = True
-        Me.OptionAPI.Text = "API版"
+        Me.OptionAPI.Text = "OpenAI"
         Me.ToolTip1.SetToolTip(Me.OptionAPI, "使用OpenAI官方的API接入。不填APIKey会使用我们的APIKey")
         Me.OptionAPI.UseVisualStyleBackColor = True
-        '
-        'OptionWeb
-        '
-        Me.OptionWeb.AutoSize = True
-        Me.OptionWeb.Checked = True
-        Me.OptionWeb.Depth = 0
-        Me.OptionWeb.Location = New System.Drawing.Point(80, 24)
-        Me.OptionWeb.Margin = New System.Windows.Forms.Padding(0)
-        Me.OptionWeb.MouseLocation = New System.Drawing.Point(-1, -1)
-        Me.OptionWeb.MouseState = MaterialSkin.MouseState.HOVER
-        Me.OptionWeb.Name = "OptionWeb"
-        Me.OptionWeb.Ripple = True
-        Me.OptionWeb.Size = New System.Drawing.Size(83, 37)
-        Me.OptionWeb.TabIndex = 3
-        Me.OptionWeb.TabStop = True
-        Me.OptionWeb.Text = "网页版"
-        Me.ToolTip1.SetToolTip(Me.OptionWeb, "使用逆向的网页版ChatGPT API，链接有可能不稳定")
-        Me.OptionWeb.UseVisualStyleBackColor = True
         '
         'Launch
         '
@@ -536,12 +306,12 @@ Partial Class Login
         Me.Launch.Font = New System.Drawing.Font("微软雅黑", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Launch.HighEmphasis = True
         Me.Launch.Icon = Nothing
-        Me.Launch.Location = New System.Drawing.Point(24, 608)
-        Me.Launch.Margin = New System.Windows.Forms.Padding(4, 6, 4, 6)
+        Me.Launch.Location = New System.Drawing.Point(36, 912)
+        Me.Launch.Margin = New System.Windows.Forms.Padding(6, 9, 6, 9)
         Me.Launch.MouseState = MaterialSkin.MouseState.HOVER
         Me.Launch.Name = "Launch"
         Me.Launch.NoAccentTextColor = System.Drawing.Color.Empty
-        Me.Launch.Size = New System.Drawing.Size(104, 40)
+        Me.Launch.Size = New System.Drawing.Size(156, 60)
         Me.Launch.TabIndex = 15
         Me.Launch.Text = "启动服务器"
         Me.ToolTip1.SetToolTip(Me.Launch, "启动服务")
@@ -554,9 +324,10 @@ Partial Class Login
         Me.ActionBar.BackColor = System.Drawing.Color.FromArgb(CType(CType(63, Byte), Integer), CType(CType(81, Byte), Integer), CType(CType(181, Byte), Integer))
         Me.ActionBar.Font = New System.Drawing.Font("微软雅黑", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.ActionBar.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ActionBar.Location = New System.Drawing.Point(0, 24)
+        Me.ActionBar.Location = New System.Drawing.Point(0, 36)
+        Me.ActionBar.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.ActionBar.Name = "ActionBar"
-        Me.ActionBar.Size = New System.Drawing.Size(1128, 48)
+        Me.ActionBar.Size = New System.Drawing.Size(1692, 72)
         Me.ActionBar.TabIndex = 16
         Me.ActionBar.Text = " 《数字生命》"
         Me.ActionBar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -565,13 +336,13 @@ Partial Class Login
         '
         Me.MaterialRadioButton1.AutoSize = True
         Me.MaterialRadioButton1.Depth = 0
-        Me.MaterialRadioButton1.Location = New System.Drawing.Point(1000, 768)
+        Me.MaterialRadioButton1.Location = New System.Drawing.Point(1500, 1152)
         Me.MaterialRadioButton1.Margin = New System.Windows.Forms.Padding(0)
         Me.MaterialRadioButton1.MouseLocation = New System.Drawing.Point(-1, -1)
         Me.MaterialRadioButton1.MouseState = MaterialSkin.MouseState.HOVER
         Me.MaterialRadioButton1.Name = "MaterialRadioButton1"
         Me.MaterialRadioButton1.Ripple = True
-        Me.MaterialRadioButton1.Size = New System.Drawing.Size(202, 37)
+        Me.MaterialRadioButton1.Size = New System.Drawing.Size(190, 37)
         Me.MaterialRadioButton1.TabIndex = 1
         Me.MaterialRadioButton1.TabStop = True
         Me.MaterialRadioButton1.Text = "MaterialRadioButton1"
@@ -580,21 +351,23 @@ Partial Class Login
         'para
         '
         Me.para.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.para.Location = New System.Drawing.Point(24, 664)
+        Me.para.Location = New System.Drawing.Point(36, 996)
+        Me.para.Margin = New System.Windows.Forms.Padding(4)
         Me.para.Multiline = True
         Me.para.Name = "para"
-        Me.para.Size = New System.Drawing.Size(1024, 24)
+        Me.para.Size = New System.Drawing.Size(1534, 34)
         Me.para.TabIndex = 26
         '
         'logData
         '
         Me.logData.BackColor = System.Drawing.SystemColors.Menu
         Me.logData.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.logData.Location = New System.Drawing.Point(480, 96)
+        Me.logData.Location = New System.Drawing.Point(720, 144)
+        Me.logData.Margin = New System.Windows.Forms.Padding(4)
         Me.logData.Multiline = True
         Me.logData.Name = "logData"
         Me.logData.ReadOnly = True
-        Me.logData.Size = New System.Drawing.Size(568, 552)
+        Me.logData.Size = New System.Drawing.Size(850, 826)
         Me.logData.TabIndex = 30
         '
         'Save
@@ -606,12 +379,12 @@ Partial Class Login
         Me.Save.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Save.HighEmphasis = True
         Me.Save.Icon = Nothing
-        Me.Save.Location = New System.Drawing.Point(24, 560)
-        Me.Save.Margin = New System.Windows.Forms.Padding(4, 6, 4, 6)
+        Me.Save.Location = New System.Drawing.Point(36, 840)
+        Me.Save.Margin = New System.Windows.Forms.Padding(6, 9, 6, 9)
         Me.Save.MouseState = MaterialSkin.MouseState.HOVER
         Me.Save.Name = "Save"
         Me.Save.NoAccentTextColor = System.Drawing.Color.Empty
-        Me.Save.Size = New System.Drawing.Size(104, 32)
+        Me.Save.Size = New System.Drawing.Size(156, 48)
         Me.Save.TabIndex = 31
         Me.Save.Text = "保存配置"
         Me.ToolTip1.SetToolTip(Me.Save, "保存所有配置项")
@@ -624,9 +397,10 @@ Partial Class Login
         Me.TextStatus.BackColor = System.Drawing.Color.Red
         Me.TextStatus.Font = New System.Drawing.Font("微软雅黑", 10.5!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.TextStatus.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.TextStatus.Location = New System.Drawing.Point(136, 608)
+        Me.TextStatus.Location = New System.Drawing.Point(204, 912)
+        Me.TextStatus.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.TextStatus.Name = "TextStatus"
-        Me.TextStatus.Size = New System.Drawing.Size(224, 40)
+        Me.TextStatus.Size = New System.Drawing.Size(336, 60)
         Me.TextStatus.TabIndex = 33
         Me.TextStatus.Text = "未启动"
         Me.TextStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -635,14 +409,14 @@ Partial Class Login
         '
         Me.CheckLog.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.CheckLog.Depth = 0
-        Me.CheckLog.Location = New System.Drawing.Point(368, 610)
+        Me.CheckLog.Location = New System.Drawing.Point(552, 915)
         Me.CheckLog.Margin = New System.Windows.Forms.Padding(0)
         Me.CheckLog.MouseLocation = New System.Drawing.Point(-1, -1)
         Me.CheckLog.MouseState = MaterialSkin.MouseState.HOVER
         Me.CheckLog.Name = "CheckLog"
         Me.CheckLog.ReadOnly = False
         Me.CheckLog.Ripple = True
-        Me.CheckLog.Size = New System.Drawing.Size(80, 40)
+        Me.CheckLog.Size = New System.Drawing.Size(120, 60)
         Me.CheckLog.TabIndex = 40
         Me.CheckLog.Text = "日志"
         Me.ToolTip1.SetToolTip(Me.CheckLog, "显示实时日志")
@@ -658,12 +432,12 @@ Partial Class Login
         Me.Editor.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Editor.HighEmphasis = True
         Me.Editor.Icon = Nothing
-        Me.Editor.Location = New System.Drawing.Point(136, 560)
-        Me.Editor.Margin = New System.Windows.Forms.Padding(4, 6, 4, 6)
+        Me.Editor.Location = New System.Drawing.Point(204, 840)
+        Me.Editor.Margin = New System.Windows.Forms.Padding(6, 9, 6, 9)
         Me.Editor.MouseState = MaterialSkin.MouseState.HOVER
         Me.Editor.Name = "Editor"
         Me.Editor.NoAccentTextColor = System.Drawing.Color.Empty
-        Me.Editor.Size = New System.Drawing.Size(112, 32)
+        Me.Editor.Size = New System.Drawing.Size(168, 48)
         Me.Editor.TabIndex = 39
         Me.Editor.Text = "编辑提示词"
         Me.Editor.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained
@@ -672,54 +446,108 @@ Partial Class Login
         '
         'IPBox
         '
-        Me.IPBox.Location = New System.Drawing.Point(664, 840)
+        Me.IPBox.Location = New System.Drawing.Point(996, 1260)
+        Me.IPBox.Margin = New System.Windows.Forms.Padding(4)
         Me.IPBox.Name = "IPBox"
-        Me.IPBox.Size = New System.Drawing.Size(128, 21)
+        Me.IPBox.Size = New System.Drawing.Size(190, 28)
         Me.IPBox.TabIndex = 41
         '
         'PortBox
         '
-        Me.PortBox.Location = New System.Drawing.Point(664, 864)
+        Me.PortBox.Location = New System.Drawing.Point(996, 1296)
+        Me.PortBox.Margin = New System.Windows.Forms.Padding(4)
         Me.PortBox.Name = "PortBox"
-        Me.PortBox.Size = New System.Drawing.Size(128, 21)
+        Me.PortBox.Size = New System.Drawing.Size(190, 28)
         Me.PortBox.TabIndex = 42
         '
-        'ComboIPSelect
+        'CustomModelInput
         '
-        Me.ComboIPSelect.AutoResize = False
-        Me.ComboIPSelect.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ComboIPSelect.Depth = 0
-        Me.ComboIPSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable
-        Me.ComboIPSelect.DropDownHeight = 118
-        Me.ComboIPSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboIPSelect.DropDownWidth = 121
-        Me.ComboIPSelect.Font = New System.Drawing.Font("微软雅黑", 10.0!)
-        Me.ComboIPSelect.ForeColor = System.Drawing.Color.FromArgb(CType(CType(222, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.ComboIPSelect.FormattingEnabled = True
-        Me.ComboIPSelect.Hint = "本机IP"
-        Me.ComboIPSelect.IntegralHeight = False
-        Me.ComboIPSelect.ItemHeight = 29
-        Me.ComboIPSelect.Location = New System.Drawing.Point(256, 560)
-        Me.ComboIPSelect.MaxDropDownItems = 4
-        Me.ComboIPSelect.MouseState = MaterialSkin.MouseState.OUT
-        Me.ComboIPSelect.Name = "ComboIPSelect"
-        Me.ComboIPSelect.Size = New System.Drawing.Size(192, 35)
-        Me.ComboIPSelect.StartIndex = 0
-        Me.ComboIPSelect.TabIndex = 43
-        Me.ComboIPSelect.UseTallSize = False
+        Me.CustomModelInput.AllowPromptAsInput = True
+        Me.CustomModelInput.AnimateReadOnly = False
+        Me.CustomModelInput.AsciiOnly = False
+        Me.CustomModelInput.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.CustomModelInput.BeepOnError = False
+        Me.CustomModelInput.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
+        Me.CustomModelInput.Depth = 0
+        Me.CustomModelInput.Font = New System.Drawing.Font("微软雅黑", 10.0!)
+        Me.CustomModelInput.HidePromptOnLeave = False
+        Me.CustomModelInput.HideSelection = True
+        Me.CustomModelInput.Hint = "自定义模型"
+        Me.CustomModelInput.InsertKeyMode = System.Windows.Forms.InsertKeyMode.[Default]
+        Me.CustomModelInput.LeadingIcon = Nothing
+        Me.CustomModelInput.Location = New System.Drawing.Point(36, 263)
+        Me.CustomModelInput.Margin = New System.Windows.Forms.Padding(4)
+        Me.CustomModelInput.Mask = ""
+        Me.CustomModelInput.MaxLength = 32767
+        Me.CustomModelInput.MouseState = MaterialSkin.MouseState.OUT
+        Me.CustomModelInput.Name = "CustomModelInput"
+        Me.CustomModelInput.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.CustomModelInput.PrefixSuffixText = Nothing
+        Me.CustomModelInput.PromptChar = Global.Microsoft.VisualBasic.ChrW(95)
+        Me.CustomModelInput.ReadOnly = False
+        Me.CustomModelInput.RejectInputOnFirstFailure = False
+        Me.CustomModelInput.ResetOnPrompt = True
+        Me.CustomModelInput.ResetOnSpace = True
+        Me.CustomModelInput.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.CustomModelInput.SelectedText = ""
+        Me.CustomModelInput.SelectionLength = 0
+        Me.CustomModelInput.SelectionStart = 0
+        Me.CustomModelInput.ShortcutsEnabled = True
+        Me.CustomModelInput.Size = New System.Drawing.Size(564, 36)
+        Me.CustomModelInput.SkipLiterals = True
+        Me.CustomModelInput.TabIndex = 42
+        Me.CustomModelInput.TabStop = False
+        Me.CustomModelInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
+        Me.CustomModelInput.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
+        Me.CustomModelInput.TrailingIcon = Nothing
+        Me.CustomModelInput.UseSystemPasswordChar = False
+        Me.CustomModelInput.UseTallSize = False
+        Me.CustomModelInput.ValidatingType = Nothing
+        Me.CustomModelInput.Visible = False
+        '
+        'SysEnvironment
+        '
+        Me.SysEnvironment.Depth = 0
+        Me.SysEnvironment.Location = New System.Drawing.Point(184, 524)
+        Me.SysEnvironment.Margin = New System.Windows.Forms.Padding(0)
+        Me.SysEnvironment.MouseLocation = New System.Drawing.Point(-1, -1)
+        Me.SysEnvironment.MouseState = MaterialSkin.MouseState.HOVER
+        Me.SysEnvironment.Name = "SysEnvironment"
+        Me.SysEnvironment.ReadOnly = False
+        Me.SysEnvironment.Ripple = True
+        Me.SysEnvironment.Size = New System.Drawing.Size(148, 60)
+        Me.SysEnvironment.TabIndex = 43
+        Me.SysEnvironment.Text = "系统环境"
+        Me.ToolTip1.SetToolTip(Me.SysEnvironment, "每一个完整句子都会生成一次语音，可以显著改善回答延迟问题")
+        Me.SysEnvironment.UseVisualStyleBackColor = True
+        '
+        'CustonModel
+        '
+        Me.CustonModel.Depth = 0
+        Me.CustonModel.Location = New System.Drawing.Point(484, 600)
+        Me.CustonModel.Margin = New System.Windows.Forms.Padding(0)
+        Me.CustonModel.MouseLocation = New System.Drawing.Point(-1, -1)
+        Me.CustonModel.MouseState = MaterialSkin.MouseState.HOVER
+        Me.CustonModel.Name = "CustonModel"
+        Me.CustonModel.ReadOnly = False
+        Me.CustonModel.Ripple = True
+        Me.CustonModel.Size = New System.Drawing.Size(148, 60)
+        Me.CustonModel.TabIndex = 44
+        Me.CustonModel.Text = "自定义模型"
+        Me.ToolTip1.SetToolTip(Me.CustonModel, "每一个完整句子都会生成一次语音，可以显著改善回答延迟问题")
+        Me.CustonModel.UseVisualStyleBackColor = True
         '
         'Login
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1117, 1074)
-        Me.Controls.Add(Me.ComboIPSelect)
+        Me.ClientSize = New System.Drawing.Size(1752, 1807)
+        Me.Controls.Add(Me.TextStatus)
         Me.Controls.Add(Me.PortBox)
         Me.Controls.Add(Me.IPBox)
         Me.Controls.Add(Me.Editor)
         Me.Controls.Add(Me.CheckLog)
-        Me.Controls.Add(Me.TextStatus)
         Me.Controls.Add(Me.Save)
         Me.Controls.Add(Me.logData)
         Me.Controls.Add(Me.para)
@@ -730,43 +558,30 @@ Partial Class Login
         Me.DrawerWidth = 400
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.FormStyle = MaterialSkin.Controls.MaterialForm.FormStyles.ActionBar_None
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "Login"
-        Me.Padding = New System.Windows.Forms.Padding(3, 26, 3, 3)
+        Me.Padding = New System.Windows.Forms.Padding(4, 39, 4, 4)
         Me.Sizable = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "数字生命"
         Me.GroupGPTVersion.ResumeLayout(False)
         Me.GroupGPTVersion.PerformLayout()
-        Me.GroupLogin.ResumeLayout(False)
-        Me.GroupLogin.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents GroupGPTVersion As GroupBox
     Friend WithEvents OptionAPI As MaterialSkin.Controls.MaterialRadioButton
-    Friend WithEvents OptionWeb As MaterialSkin.Controls.MaterialRadioButton
     Friend WithEvents TextAPIKey As MaterialSkin.Controls.MaterialMaskedTextBox
     Friend WithEvents Launch As MaterialSkin.Controls.MaterialButton
     Friend WithEvents ActionBar As Label
     Friend WithEvents MaterialRadioButton1 As MaterialSkin.Controls.MaterialRadioButton
     Friend WithEvents ComboModSelect As MaterialSkin.Controls.MaterialComboBox
-    Friend WithEvents TextProxServer As MaterialSkin.Controls.MaterialMaskedTextBox
     Friend WithEvents para As TextBox
     Friend WithEvents logData As TextBox
     Friend WithEvents Save As MaterialSkin.Controls.MaterialButton
     Friend WithEvents TextStatus As Label
-    Friend WithEvents GroupLogin As GroupBox
-    Friend WithEvents GetCookie As MaterialSkin.Controls.MaterialButton
-    Friend WithEvents TextOpenAIAcc As MaterialSkin.Controls.MaterialMaskedTextBox
-    Friend WithEvents CheckIsPlus As MaterialSkin.Controls.MaterialCheckbox
-    Friend WithEvents TextOpenAICookie As MaterialSkin.Controls.MaterialMaskedTextBox
-    Friend WithEvents TextOpenAIPass As MaterialSkin.Controls.MaterialMaskedTextBox
-    Friend WithEvents OptionCookie As MaterialSkin.Controls.MaterialRadioButton
-    Friend WithEvents OptionAccAndPass As MaterialSkin.Controls.MaterialRadioButton
-    Friend WithEvents GetAPI As MaterialSkin.Controls.MaterialButton
-    Friend WithEvents CheckBW As MaterialSkin.Controls.MaterialCheckbox
     Friend WithEvents CheckStream As MaterialSkin.Controls.MaterialCheckbox
     Friend WithEvents ComboCharacterSelect As MaterialSkin.Controls.MaterialComboBox
     Friend WithEvents CheckLog As MaterialSkin.Controls.MaterialCheckbox
@@ -774,5 +589,11 @@ Partial Class Login
     Friend WithEvents Editor As MaterialSkin.Controls.MaterialButton
     Friend WithEvents IPBox As TextBox
     Friend WithEvents PortBox As TextBox
-    Friend WithEvents ComboIPSelect As MaterialSkin.Controls.MaterialComboBox
+    Friend WithEvents TextBaseUrl As MaterialSkin.Controls.MaterialMaskedTextBox
+    Friend WithEvents OptionAnthropic As MaterialSkin.Controls.MaterialRadioButton
+    Friend WithEvents OptionGemini As MaterialSkin.Controls.MaterialRadioButton
+    Friend WithEvents CheckNonEXE As MaterialSkin.Controls.MaterialCheckbox
+    Friend WithEvents CustonModel As MaterialSkin.Controls.MaterialCheckbox
+    Friend WithEvents SysEnvironment As MaterialSkin.Controls.MaterialCheckbox
+    Friend WithEvents CustomModelInput As MaterialSkin.Controls.MaterialMaskedTextBox
 End Class

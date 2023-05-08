@@ -4,9 +4,9 @@ Imports System.Text
 
 Public Class Login
     Dim model(), characterName() As String
-    Dim apiKey, chatVer, account, passwd, cookie, proxy, plusVer, mode, stream, chara, brainWash As String
+    Dim apiKey, chatVer, mode, stream, chara, base_url As String
     Dim ip, port As String
-    Dim apiKeyConfig, chatVerConfig, accountConfig, passwdConfig, ipConfig, cookieConfig, proxyConfig, plusVerConfig, modeConfig, actionBarText, streamConfig, showCommand, charaConfig, brainWashConfig, showLog As String
+    Dim apiKeyConfig, chatVerConfig, modeConfig, actionBarText, streamConfig, showCommand, charaConfig, showLog, base_url_config, pyrun, SysEnvironmentCon As String
     Dim lastLine As String
     Dim configFile = Application.StartupPath & "/Config/config.ini"
     Dim modelFile = Application.StartupPath & "/Config/model.ini"
@@ -25,40 +25,34 @@ Public Class Login
         Shell("cmd /c del log.log")
         Shell("cmd /c echo. > log.log")
         Shell("cmd /c echo. > logdata.txt")
-        TextOpenAICookie.Visible = False
         apiKeyConfig = ReadConfig("uiconfig", "apikey", configFile)
         chatVerConfig = ReadConfig("uiconfig", "chatver", configFile)
-        accountConfig = ReadConfig("uiconfig", "acco", configFile)
-        passwdConfig = ReadConfig("uiconfig", "password", configFile)
-        cookieConfig = ReadConfig("uiconfig", "accesstoken", configFile)
-        proxyConfig = ReadConfig("uiconfig", "proxy", configFile)
-        plusVerConfig = ReadConfig("uiconfig", "paid", configFile)
         modeConfig = ReadConfig("uiconfig", "model", configFile)
         streamConfig = ReadConfig("uiconfig", "stream", configFile)
         charaConfig = ReadConfig("uiconfig", "character", configFile)
         showLog = ReadConfig("uiconfig", "showlog", configFile)
         showCommand = ReadConfig("uiconfig", "showcommand", configFile)
-        ComboIPSelect.Items.Clear()
-
-        For Each ii In GetIpAddress()
-            ComboIPSelect.Items.Add(ii)
-        Next ii
-        ComboIPSelect.SelectedIndex = 0
-        ip = " --ip " & ComboIPSelect.Text
+        base_url_config = ReadConfig("uiconfig", "base_url", configFile)
+        pyrun = ReadConfig("uiconfig", "pyrun", configFile)
+        SysEnvironmentCon = ReadConfig("uiconfig", "SysEnviron", configFile)
+        If chatVer = "1" Then
+            OptionAPI.Checked = True
+        ElseIf chatVer = "2" Then
+            OptionAnthropic.Checked = True
+        Else
+            OptionGemini.Checked = True
+        End If
         If showCommand = "True" Then
             Height = 700
         Else
             Height = 660
         End If
         Log("Starting launcher.")
-        If Not Directory.Exists("GPT\prompts") Then
-            Shell("cmd /c echo d | xcopy GPT\prompts_default GPT\prompts")
-            Log("Prompts not exist, copied.")
+        If base_url_config = "" Then
+            base_url = ""
         Else
-            Log("Prompts folder exist, skip copy.")
-
+            base_url = " --base_url" & base_url_config
         End If
-
         If showLog = "True" Then
             Width = 1060
             CheckLog.Checked = True
@@ -72,74 +66,37 @@ Public Class Login
             apiKey = " --APIKey " & apiKeyConfig
             TextAPIKey.Text = apiKeyConfig
         End If
+        If pyrun = "True" Then
+            CheckNonEXE.Checked = True
+        Else
+            CheckNonEXE.Checked = False
+        End If
         'End If
-
-
-
-        '3
-        If accountConfig = "" And OptionAPI.Checked = False Then
-            account = ""
-        Else
-            account = " --email " & accountConfig
-            TextOpenAIAcc.Text = accountConfig
-        End If
-
-        '4
-        If passwdConfig = "" And OptionAPI.Checked = False Then
-            passwd = ""
-        Else
-            passwd = " --password " & passwdConfig
-            TextOpenAIPass.Text = passwdConfig
-        End If
-
-
-        '5
-        If cookieConfig = "" And OptionAPI.Checked = False Then
-            cookie = ""
-        Else
-            cookie = " --accessToken " & cookieConfig
-            TextOpenAICookie.Text = cookieConfig
-        End If
-
-
-        '6
-
-        If proxyConfig = "" Then
-            proxy = ""
-        Else
-            proxy = " --proxy " & proxyConfig
-            TextProxServer.Text = proxyConfig
-        End If
-
 
         '7
         'MsgBox(modeConfig)
 
         If OptionAPI.Checked Then
-            plusVer = ""
-            Dim comboData = ReadConfig("model", "api", modelFile)
+            Dim comboData = ReadConfig("model", "openai", modelFile)
             model = Split(comboData, ",")
             ComboModSelect.Items.Clear()
-            GetCookie.Visible = True
             For Each ii In model
                 ComboModSelect.Items.Add(ii)
             Next ii
-
-            TextAPIKey.Text = apiKey
-        Else
-            Dim comboData = ReadConfig("model", "web", modelFile)
+        ElseIf OptionAnthropic.Checked Then
+            Dim comboData = ReadConfig("model", "anthropic", modelFile)
             model = Split(comboData, ",")
             ComboModSelect.Items.Clear()
-            GetCookie.Visible = False
-            For Each i In model
-                ComboModSelect.Items.Add(i)
-            Next i
-            If plusVerConfig = "True" Then
-                CheckIsPlus.Checked = True
-            Else
-                CheckIsPlus.Checked = False
-
-            End If
+            For Each ii In model
+                ComboModSelect.Items.Add(ii)
+            Next ii
+        Else
+            Dim comboData = ReadConfig("model", "gemini", modelFile)
+            model = Split(comboData, ",")
+            ComboModSelect.Items.Clear()
+            For Each ii In model
+                ComboModSelect.Items.Add(ii)
+            Next ii
         End If
         ComboModSelect.Text = modeConfig
 
@@ -154,16 +111,12 @@ Public Class Login
             stream = " --stream False"
             CheckStream.Checked = False
         End If
-
-        If brainWashConfig = "True" Then
-            CheckBW.Checked = True
-            brainWash = " --brainwash True"
+        If pyrun = "True" Then
+            CheckStream.Checked = True
 
         Else
-            brainWash = " --brainwash False"
-            CheckBW.Checked = False
+            CheckStream.Checked = False
         End If
-
         '10
         Dim comboDataCharacter = ReadConfig("model", "character", modelFile)
         model = Split(comboDataCharacter, ",")
@@ -180,55 +133,7 @@ Public Class Login
         chara = " --character " & charaConfig
 
         chatVer = " --chatVer " & chatVerConfig
-        If chatVerConfig = "3" Then
-            OptionAPI.PerformClick()
-            account = ""
-            passwd = ""
-            plusVer = ""
-        End If
         'ComboModSelect.SelectedText = modeConfig
-        UpdateCommand()
-        OptionCookie.PerformClick()
-
-    End Sub
-
-
-    Private Sub OptionWeb_CheckedChanged(sender As Object, e As EventArgs) Handles OptionWeb.Click
-
-        CheckBW.Enabled = True
-        If CheckBW.Checked Then
-            brainWash = " --brainwash True"
-        Else
-            brainWash = " --brainwash False"
-        End If
-
-        TextAPIKey.Visible = False
-        'TextProxServer.Hint = "代理服务器链接(必填)"
-        GroupLogin.Visible = True
-        ComboModSelect.Location = New Point(24, 344)
-        TextProxServer.Location = New Point(24, 296)
-        apiKey = ""
-        Dim comboData = ReadConfig("model", "web", modelFile)
-        model = Split(comboData, ",")
-        ComboModSelect.Items.Clear()
-
-        For Each i In model
-            ComboModSelect.Items.Add(i)
-        Next i
-        ComboModSelect.Text = modeConfig
-
-        account = " --email " & TextOpenAIAcc.Text
-        passwd = " --password " & TextOpenAIPass.Text
-        cookie = " --accessToken " & TextOpenAICookie.Text
-        If CheckIsPlus.Checked Then
-            plusVer = " --paid True"
-        Else
-            plusVer = " --paid False"
-        End If
-
-        chatVer = " --chatVer 1"
-        chatVerConfig = "1"
-        My.Settings.Save()
         UpdateCommand()
 
     End Sub
@@ -238,17 +143,9 @@ Public Class Login
     End Sub
 
     Private Sub OptionAPI_CheckedChanged(sender As Object, e As EventArgs) Handles OptionAPI.Click
-
-        TextAPIKey.Visible = True
-        CheckBW.Enabled = False
-        brainWash = " --brainwash False"
-
-        GroupLogin.Visible = False
-        'TextProxServer.Hint = "代理服务器链接(必填)"
-        ComboModSelect.Location = New Point(24, 224)
-        TextProxServer.Location = New Point(24, 176)
-        chatVer = " --chatVer 3"
-        Dim comboData = ReadConfig("model", "api", modelFile)
+        TextBaseUrl.Visible = True
+        chatVer = " --chatVer 1"
+        Dim comboData = ReadConfig("model", "openai", modelFile)
         model = Split(comboData, ",")
         ComboModSelect.Items.Clear()
 
@@ -261,17 +158,48 @@ Public Class Login
         Else
             apiKey = " --APIKey " & TextAPIKey.Text
         End If
+        chatVerConfig = "1"
+        My.Settings.Save()
+        UpdateCommand()
+    End Sub
 
-        If TextProxServer.Text = "" Then
-            proxy = ""
+    Private Sub OptionAnthropic_CheckedChanged(sender As Object, e As EventArgs) Handles OptionAnthropic.Click
+        TextBaseUrl.Visible = True
+        chatVer = " --chatVer 2"
+        Dim comboData = ReadConfig("model", "anthropic", modelFile)
+        model = Split(comboData, ",")
+        ComboModSelect.Items.Clear()
+
+        For Each ii In model
+            ComboModSelect.Items.Add(ii)
+        Next ii
+        ComboModSelect.Text = modeConfig
+        If TextAPIKey.Text = "" Then
+            apiKey = ""
         Else
-            proxy = " --proxy " & TextProxServer.Text
+            apiKey = " --APIKey " & TextAPIKey.Text
         End If
-        account = ""
-        passwd = ""
-        cookie = ""
-        plusVer = ""
+        chatVerConfig = "2"
+        My.Settings.Save()
+        UpdateCommand()
+    End Sub
 
+    Private Sub OptionGemini_CheckedChanged(sender As Object, e As EventArgs) Handles OptionGemini.Click
+        TextBaseUrl.Visible = False
+        chatVer = " --chatVer 3"
+        Dim comboData = ReadConfig("model", "gemini", modelFile)
+        model = Split(comboData, ",")
+        ComboModSelect.Items.Clear()
+
+        For Each ii In model
+            ComboModSelect.Items.Add(ii)
+        Next ii
+        ComboModSelect.Text = modeConfig
+        If TextAPIKey.Text = "" Then
+            apiKey = ""
+        Else
+            apiKey = " --APIKey " & TextAPIKey.Text
+        End If
         chatVerConfig = "3"
         My.Settings.Save()
         UpdateCommand()
@@ -283,7 +211,11 @@ Public Class Login
         UpdateCommand()
     End Sub
 
+    Private Sub Textbaseurl_Click_1(sender As Object, e As EventArgs) Handles TextBaseUrl.TextChanged
+        base_url = " --base_url " & TextBaseUrl.Text
 
+        UpdateCommand()
+    End Sub
 
 
     Private Sub CheckLog_CheckedChanged(sender As Object, e As EventArgs) Handles CheckLog.CheckedChanged
@@ -294,6 +226,10 @@ Public Class Login
         End If
     End Sub
 
+    Private Sub logData_TextChanged(sender As Object, e As EventArgs) Handles logData.TextChanged
+
+    End Sub
+
     Private Sub CheckLog_NewCheckedChanged(sender As Object, e As EventArgs) Handles CheckLog.Click
         If CheckLog.Checked Then
             Width = 1060
@@ -302,16 +238,15 @@ Public Class Login
         End If
     End Sub
 
-    Private Sub ComboIPSelect_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboIPSelect.SelectedIndexChanged
-        ip = " --ip " & ComboIPSelect.Text
-        UpdateCommand()
-    End Sub
-
     Private Sub LaunchPH_Click(sender As Object, e As EventArgs)
     End Sub
 
-    Private Sub GetAPI_Click(sender As Object, e As EventArgs) Handles GetAPI.Click
+    Private Sub GetAPI_Click(sender As Object, e As EventArgs)
         Shell("cmd /c start guide/getapi.html")
+    End Sub
+
+    Private Sub OptionGemini_CheckedChanged_1(sender As Object, e As EventArgs) Handles OptionGemini.CheckedChanged
+
     End Sub
 
     Private Sub ActionBar_Click(sender As Object, e As EventArgs) Handles ActionBar.Click
@@ -333,6 +268,14 @@ Public Class Login
         End If
     End Sub
 
+    Private Sub GroupGPTVersion_Enter(sender As Object, e As EventArgs) Handles GroupGPTVersion.Enter
+
+    End Sub
+
+    Private Sub MaterialRadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles OptionAnthropic.CheckedChanged
+
+    End Sub
+
     'Private Sub TextStatus_Click(sender As Object, e As EventArgs) Handles TextStatus.MouseWheel
     '    Shell("cmd /c start loglauncher.log", vbHide)
 
@@ -340,44 +283,6 @@ Public Class Login
 
     Private Sub Editor_Click(sender As Object, e As EventArgs) Handles Editor.Click
         PromptEditor.Show()
-    End Sub
-
-    Private Sub CheckBW_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBW.CheckedChanged
-
-
-        If CheckBW.Checked = "True" Then
-            brainWash = " --brainwash True"
-        Else
-            brainWash = " --brainwash False"
-        End If
-        UpdateCommand()
-
-    End Sub
-
-    Private Sub TextOpenAIAcc_Click(sender As Object, e As EventArgs) Handles TextOpenAIAcc.Click
-        If OptionAPI.Checked = False Then
-            account = " --email " & TextOpenAIAcc.Text
-        End If
-        UpdateCommand()
-    End Sub
-
-    Private Sub TextOpenAIPass_Click(sender As Object, e As EventArgs) Handles TextOpenAIPass.Click
-        If OptionAPI.Checked = False Then
-
-            passwd = " --password " & TextOpenAIPass.Text
-        End If
-        UpdateCommand()
-    End Sub
-
-    Private Sub CheckIsPlus_CheckedChanged(sender As Object, e As EventArgs) Handles CheckIsPlus.Click
-        If CheckIsPlus.Checked And OptionAPI.Checked = False Then
-            plusVer = " --paid True"
-        Else
-            plusVer = " --paid False"
-
-        End If
-
-        UpdateCommand()
     End Sub
 
     Private Sub ComboModSelect_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboModSelect.SelectedIndexChanged
@@ -410,8 +315,8 @@ Public Class Login
         '    MsgBox("no")
         'End If
 
-        Shell("cmd /c taskkill /f /t /im SocketServer.exe", vbHide)
-        Shell("cmd /c taskkill /f /t /im T.exe", vbHide)
+        'Shell("cmd /c taskkill /f /t /im SocketServer.exe", vbHide)
+        'Shell("cmd /c taskkill /f /t /im T.exe", vbHide)
         SelectClient.Close()
         Thread.Sleep(1000)
         Shell("cmd /c " & para.Text, vbHide)
@@ -459,7 +364,7 @@ Public Class Login
                         TextStatus.Text = "未启动"
                         TextStatus.BackColor = Color.Red
                         logData.AppendText(vbCrLf + "服务器进程已退出！")
-                        Shell("cmd /c taskkill /f /t /im T.exe", vbHide)
+                        'Shell("cmd /c taskkill /f /t /im T.exe", vbHide)
 
                         Exit Do
                     Else
@@ -473,7 +378,7 @@ Public Class Login
 
 
                     Dim ipData() = Split(logSpliter(UBound(logSpliter)), ":")
-                    ip = ComboIPSelect.Text
+                    ip = "0.0.0.0"
                     port = Replace(ipData(1), "...", "")
                     Launch.Text = "重启服务器"
                     TextStatus.Text = "服务已启动。点击此处选择客户端"
@@ -549,104 +454,31 @@ Public Class Login
         UpdateCommand()
     End Sub
 
-
-    Private Sub TextOpenAIPass_Click_1(sender As Object, e As EventArgs) Handles TextOpenAIPass.TextChanged
-        passwd = " --password " & TextOpenAIPass.Text
+    Private Sub ChekNonEXE_CheckedChanged(sender As Object, e As EventArgs) Handles CheckNonEXE.CheckedChanged
         UpdateCommand()
     End Sub
-
-
-
-    Private Sub GetCookie_Click(sender As Object, e As EventArgs) Handles GetCookie.Click
-        Shell("cmd /c start guide/getcookie.html"， vbHide)
-    End Sub
-
-
     Private Sub Save_Click(sender As Object, e As EventArgs) Handles Save.Click
         SaveConfig()
         Msgbox2(Me, "成功", "已保存配置！",, False, )
     End Sub
 
-    Private Sub TextOpenAICookie_Click(sender As Object, e As EventArgs) Handles TextOpenAICookie.TextChanged
-        cookie = " --accessToken " & TextOpenAICookie.Text
-        UpdateCommand()
-    End Sub
-
-    Private Sub TextOpenAIProxy_Click(sender As Object, e As EventArgs) Handles TextProxServer.TextChanged
-        proxy = " --proxy " & TextProxServer.Text
-        UpdateCommand()
-    End Sub
-
-
-
-
-    Private Sub OptionCookie_CheckedChanged_1(sender As Object, e As EventArgs) Handles OptionCookie.Click
-        TextOpenAICookie.Visible = True
-        TextOpenAIAcc.Visible = False
-        TextOpenAIPass.Visible = False
-        GetCookie.Visible = True
-        CheckIsPlus.Enabled = True
-        CheckIsPlus.Text = "Plus账号"
-        GroupLogin.Height = 208
-        cookie = " --accessToken " & TextOpenAICookie.Text
-        account = ""
-        passwd = ""
-        plusVer = ""
-        If CheckIsPlus.Checked Then
-            plusVer = " --paid True"
-        Else
-            plusVer = " --paid False"
-        End If
-        UpdateCommand()
-    End Sub
-
-    Private Sub OptionAccAndPass_CheckedChanged(sender As Object, e As EventArgs) Handles OptionAccAndPass.CheckedChanged
+    Private Sub OptionAccAndPass_CheckedChanged(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub OptionAccAndPass_CheckedChanged_1(sender As Object, e As EventArgs) Handles OptionAccAndPass.Click
-        TextOpenAICookie.Visible = False
-        TextOpenAIAcc.Visible = True
-        GetCookie.Visible = False
-        CheckIsPlus.Enabled = False
-        CheckIsPlus.Text = "Plus账号（暂不可用）"
-        plusVer = " --paid False"
-        TextOpenAIPass.Visible = True
-        GroupLogin.Height = 208
-        account = " --email " & TextOpenAIAcc.Text
-        passwd = " --password " & TextOpenAIPass.Text
-        'If CheckIsPlus.Checked Then
-        '    plusVer = " --paid True"
-        'Else
-        '    plusVer = " --paid False"
-        'End If
-        cookie = ""
-
-        UpdateCommand()
-    End Sub
 
     Sub UpdateCommand()
         If TextAPIKey.Text = "" Then
             apiKey = ""
         End If
-        If TextOpenAIAcc.Text = "" Then
-            account = ""
+        If TextBaseUrl.Text = "" Then
+            base_url = ""
         End If
-
-        If TextOpenAIPass.Text = "" Then
-            passwd = ""
+        If CheckNonEXE.Checked Then
+            para.Text = ".venv/Scripts/python.exe SocketServer.py" & chatVer & apiKey & mode & stream & chara & base_url
+        Else
+            para.Text = "SocketServer.exe " & chatVer & apiKey & mode & stream & chara & base_url
         End If
-
-        If TextOpenAICookie.Text = "" Then
-            cookie = ""
-        End If
-
-        If TextProxServer.Text = "" Then
-            proxy = ""
-        End If
-
-
-        para.Text = "SocketServer.exe " & chatVer & apiKey & account & ip & passwd & cookie & proxy & plusVer & brainWash & mode & stream & chara
         Log("Command update：" & para.Text)
 
     End Sub
@@ -660,19 +492,10 @@ Public Class Login
 
     Sub SaveConfig()
         'Log("Save all config.")
-
-        If OptionWeb.Checked Then
-            WriteConfig("uiconfig", "chatver", "1", configFile)
-        Else
-            WriteConfig("uiconfig", "chatver", "3", configFile)
-        End If
-
+        WriteConfig("uiconfig", "chatVer", chatVer, configFile)
         WriteConfig("uiconfig", "apikey", TextAPIKey.Text, configFile)
-        WriteConfig("uiconfig", "acco", TextOpenAIAcc.Text, configFile)
-        WriteConfig("uiconfig", "password", TextOpenAIPass.Text, configFile)
-        WriteConfig("uiconfig", "accesstoken", TextOpenAICookie.Text, configFile)
-        WriteConfig("uiconfig", "proxy", TextProxServer.Text, configFile)
         WriteConfig("uiconfig", "model", ComboModSelect.Text, configFile)
+        WriteConfig("uiconfig", "base_url", TextBaseUrl.Text, configFile)
 
         If CheckStream.Checked Then
             WriteConfig("uiconfig", "stream", "True", configFile)
@@ -680,7 +503,12 @@ Public Class Login
             WriteConfig("uiconfig", "stream", "False", configFile)
 
         End If
+        If CheckNonEXE.Checked Then
+            WriteConfig("uiconfig", "pyrun", "True", configFile)
+        Else
+            WriteConfig("uiconfig", "pyrun", "False", configFile)
 
+        End If
         WriteConfig("uiconfig", "character", ComboCharacterSelect.Text, configFile)
 
         If CheckLog.Checked Then
