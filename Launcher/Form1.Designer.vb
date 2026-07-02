@@ -24,15 +24,18 @@ Partial Class Login
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.GroupGPTVersion = New System.Windows.Forms.GroupBox()
+        Me.CustonModel = New MaterialSkin.Controls.MaterialCheckbox()
+        Me.SysEnvironment = New MaterialSkin.Controls.MaterialCheckbox()
         Me.CheckNonEXE = New MaterialSkin.Controls.MaterialCheckbox()
         Me.OptionAnthropic = New MaterialSkin.Controls.MaterialRadioButton()
         Me.OptionGemini = New MaterialSkin.Controls.MaterialRadioButton()
         Me.TextBaseUrl = New MaterialSkin.Controls.MaterialMaskedTextBox()
         Me.CheckStream = New MaterialSkin.Controls.MaterialCheckbox()
         Me.ComboCharacterSelect = New MaterialSkin.Controls.MaterialComboBox()
-        Me.ComboModSelect = New MaterialSkin.Controls.MaterialComboBox()
         Me.TextAPIKey = New MaterialSkin.Controls.MaterialMaskedTextBox()
         Me.OptionAPI = New MaterialSkin.Controls.MaterialRadioButton()
+        Me.CustomModelInput = New MaterialSkin.Controls.MaterialMaskedTextBox()
+        Me.ComboModSelect = New MaterialSkin.Controls.MaterialComboBox()
         Me.Launch = New MaterialSkin.Controls.MaterialButton()
         Me.ActionBar = New System.Windows.Forms.Label()
         Me.MaterialRadioButton1 = New MaterialSkin.Controls.MaterialRadioButton()
@@ -45,9 +48,6 @@ Partial Class Login
         Me.Editor = New MaterialSkin.Controls.MaterialButton()
         Me.IPBox = New System.Windows.Forms.TextBox()
         Me.PortBox = New System.Windows.Forms.TextBox()
-        Me.CustomModelInput = New MaterialSkin.Controls.MaterialMaskedTextBox()
-        Me.SysEnvironment = New MaterialSkin.Controls.MaterialCheckbox()
-        Me.CustonModel = New MaterialSkin.Controls.MaterialCheckbox()
         Me.GroupGPTVersion.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -56,16 +56,16 @@ Partial Class Login
         Me.GroupGPTVersion.BackColor = System.Drawing.SystemColors.Control
         Me.GroupGPTVersion.Controls.Add(Me.CustonModel)
         Me.GroupGPTVersion.Controls.Add(Me.SysEnvironment)
-        Me.GroupGPTVersion.Controls.Add(Me.CustomModelInput)
         Me.GroupGPTVersion.Controls.Add(Me.CheckNonEXE)
         Me.GroupGPTVersion.Controls.Add(Me.OptionAnthropic)
         Me.GroupGPTVersion.Controls.Add(Me.OptionGemini)
         Me.GroupGPTVersion.Controls.Add(Me.TextBaseUrl)
         Me.GroupGPTVersion.Controls.Add(Me.CheckStream)
         Me.GroupGPTVersion.Controls.Add(Me.ComboCharacterSelect)
-        Me.GroupGPTVersion.Controls.Add(Me.ComboModSelect)
         Me.GroupGPTVersion.Controls.Add(Me.TextAPIKey)
         Me.GroupGPTVersion.Controls.Add(Me.OptionAPI)
+        Me.GroupGPTVersion.Controls.Add(Me.ComboModSelect)
+        Me.GroupGPTVersion.Controls.Add(Me.CustomModelInput)
         Me.GroupGPTVersion.Font = New System.Drawing.Font("微软雅黑", 10.5!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.GroupGPTVersion.Location = New System.Drawing.Point(36, 132)
         Me.GroupGPTVersion.Margin = New System.Windows.Forms.Padding(4)
@@ -75,6 +75,39 @@ Partial Class Login
         Me.GroupGPTVersion.TabIndex = 3
         Me.GroupGPTVersion.TabStop = False
         Me.GroupGPTVersion.Text = "API类型"
+        '
+        'CustonModel
+        '
+        Me.CustonModel.Depth = 0
+        Me.CustonModel.Location = New System.Drawing.Point(484, 600)
+        Me.CustonModel.Margin = New System.Windows.Forms.Padding(0)
+        Me.CustonModel.MouseLocation = New System.Drawing.Point(-1, -1)
+        Me.CustonModel.MouseState = MaterialSkin.MouseState.HOVER
+        Me.CustonModel.Name = "CustonModel"
+        Me.CustonModel.ReadOnly = False
+        Me.CustonModel.Ripple = True
+        Me.CustonModel.Size = New System.Drawing.Size(148, 60)
+        Me.CustonModel.TabIndex = 44
+        Me.CustonModel.Text = "自定义模型"
+        Me.ToolTip1.SetToolTip(Me.CustonModel, "输入自己的模型。")
+        Me.CustonModel.UseVisualStyleBackColor = True
+        '
+        'SysEnvironment
+        '
+        Me.SysEnvironment.Depth = 0
+        Me.SysEnvironment.Location = New System.Drawing.Point(184, 524)
+        Me.SysEnvironment.Margin = New System.Windows.Forms.Padding(0)
+        Me.SysEnvironment.MouseLocation = New System.Drawing.Point(-1, -1)
+        Me.SysEnvironment.MouseState = MaterialSkin.MouseState.HOVER
+        Me.SysEnvironment.Name = "SysEnvironment"
+        Me.SysEnvironment.ReadOnly = False
+        Me.SysEnvironment.Ripple = True
+        Me.SysEnvironment.Size = New System.Drawing.Size(148, 60)
+        Me.SysEnvironment.TabIndex = 43
+        Me.SysEnvironment.Text = "系统环境"
+        Me.ToolTip1.SetToolTip(Me.SysEnvironment, "使用系统Python环境运行。")
+        Me.SysEnvironment.UseVisualStyleBackColor = True
+        Me.SysEnvironment.Visible = False
         '
         'CheckNonEXE
         '
@@ -89,7 +122,7 @@ Partial Class Login
         Me.CheckNonEXE.Size = New System.Drawing.Size(148, 60)
         Me.CheckNonEXE.TabIndex = 41
         Me.CheckNonEXE.Text = "解释运行"
-        Me.ToolTip1.SetToolTip(Me.CheckNonEXE, "每一个完整句子都会生成一次语音，可以显著改善回答延迟问题")
+        Me.ToolTip1.SetToolTip(Me.CheckNonEXE, "运行Python源代码而非编译后的可执行文件。")
         Me.CheckNonEXE.UseVisualStyleBackColor = True
         '
         'OptionAnthropic
@@ -106,7 +139,7 @@ Partial Class Login
         Me.OptionAnthropic.TabIndex = 40
         Me.OptionAnthropic.TabStop = True
         Me.OptionAnthropic.Text = "Anthropic"
-        Me.ToolTip1.SetToolTip(Me.OptionAnthropic, "使用OpenAI官方的API接入。不填APIKey会使用我们的APIKey")
+        Me.ToolTip1.SetToolTip(Me.OptionAnthropic, "使用Anthropic API接入")
         Me.OptionAnthropic.UseVisualStyleBackColor = True
         '
         'OptionGemini
@@ -123,7 +156,7 @@ Partial Class Login
         Me.OptionGemini.TabIndex = 39
         Me.OptionGemini.TabStop = True
         Me.OptionGemini.Text = "Gemini"
-        Me.ToolTip1.SetToolTip(Me.OptionGemini, "使用OpenAI官方的API接入。不填APIKey会使用我们的APIKey")
+        Me.ToolTip1.SetToolTip(Me.OptionGemini, "使用Gemini API接入")
         Me.OptionGemini.UseVisualStyleBackColor = True
         '
         'TextBaseUrl
@@ -210,31 +243,6 @@ Partial Class Login
         Me.ComboCharacterSelect.StartIndex = 0
         Me.ComboCharacterSelect.TabIndex = 36
         '
-        'ComboModSelect
-        '
-        Me.ComboModSelect.AutoResize = False
-        Me.ComboModSelect.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.ComboModSelect.Depth = 0
-        Me.ComboModSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable
-        Me.ComboModSelect.DropDownHeight = 118
-        Me.ComboModSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboModSelect.DropDownWidth = 121
-        Me.ComboModSelect.Font = New System.Drawing.Font("微软雅黑", 10.0!)
-        Me.ComboModSelect.ForeColor = System.Drawing.Color.FromArgb(CType(CType(222, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.ComboModSelect.FormattingEnabled = True
-        Me.ComboModSelect.Hint = "模型选择"
-        Me.ComboModSelect.IntegralHeight = False
-        Me.ComboModSelect.ItemHeight = 29
-        Me.ComboModSelect.Location = New System.Drawing.Point(36, 263)
-        Me.ComboModSelect.Margin = New System.Windows.Forms.Padding(4)
-        Me.ComboModSelect.MaxDropDownItems = 4
-        Me.ComboModSelect.MouseState = MaterialSkin.MouseState.OUT
-        Me.ComboModSelect.Name = "ComboModSelect"
-        Me.ComboModSelect.Size = New System.Drawing.Size(562, 35)
-        Me.ComboModSelect.StartIndex = 0
-        Me.ComboModSelect.TabIndex = 24
-        Me.ComboModSelect.UseTallSize = False
-        '
         'TextAPIKey
         '
         Me.TextAPIKey.AllowPromptAsInput = True
@@ -293,8 +301,78 @@ Partial Class Login
         Me.OptionAPI.TabIndex = 4
         Me.OptionAPI.TabStop = True
         Me.OptionAPI.Text = "OpenAI"
-        Me.ToolTip1.SetToolTip(Me.OptionAPI, "使用OpenAI官方的API接入。不填APIKey会使用我们的APIKey")
+        Me.ToolTip1.SetToolTip(Me.OptionAPI, "使用OpenAI API接入")
         Me.OptionAPI.UseVisualStyleBackColor = True
+        '
+        'CustomModelInput
+        '
+        Me.CustomModelInput.AllowPromptAsInput = True
+        Me.CustomModelInput.AnimateReadOnly = False
+        Me.CustomModelInput.AsciiOnly = False
+        Me.CustomModelInput.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.CustomModelInput.BeepOnError = False
+        Me.CustomModelInput.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
+        Me.CustomModelInput.Depth = 0
+        Me.CustomModelInput.Font = New System.Drawing.Font("微软雅黑", 10.0!)
+        Me.CustomModelInput.HidePromptOnLeave = False
+        Me.CustomModelInput.HideSelection = True
+        Me.CustomModelInput.Hint = "自定义模型"
+        Me.CustomModelInput.InsertKeyMode = System.Windows.Forms.InsertKeyMode.[Default]
+        Me.CustomModelInput.LeadingIcon = Nothing
+        Me.CustomModelInput.Location = New System.Drawing.Point(36, 263)
+        Me.CustomModelInput.Margin = New System.Windows.Forms.Padding(4)
+        Me.CustomModelInput.Mask = ""
+        Me.CustomModelInput.MaxLength = 32767
+        Me.CustomModelInput.MouseState = MaterialSkin.MouseState.OUT
+        Me.CustomModelInput.Name = "CustomModelInput"
+        Me.CustomModelInput.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.CustomModelInput.PrefixSuffixText = Nothing
+        Me.CustomModelInput.PromptChar = Global.Microsoft.VisualBasic.ChrW(95)
+        Me.CustomModelInput.ReadOnly = False
+        Me.CustomModelInput.RejectInputOnFirstFailure = False
+        Me.CustomModelInput.ResetOnPrompt = True
+        Me.CustomModelInput.ResetOnSpace = True
+        Me.CustomModelInput.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.CustomModelInput.SelectedText = ""
+        Me.CustomModelInput.SelectionLength = 0
+        Me.CustomModelInput.SelectionStart = 0
+        Me.CustomModelInput.ShortcutsEnabled = True
+        Me.CustomModelInput.Size = New System.Drawing.Size(564, 36)
+        Me.CustomModelInput.SkipLiterals = True
+        Me.CustomModelInput.TabIndex = 42
+        Me.CustomModelInput.TabStop = False
+        Me.CustomModelInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
+        Me.CustomModelInput.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
+        Me.CustomModelInput.TrailingIcon = Nothing
+        Me.CustomModelInput.UseSystemPasswordChar = False
+        Me.CustomModelInput.UseTallSize = False
+        Me.CustomModelInput.ValidatingType = Nothing
+        Me.CustomModelInput.Visible = False
+        '
+        'ComboModSelect
+        '
+        Me.ComboModSelect.AutoResize = False
+        Me.ComboModSelect.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.ComboModSelect.Depth = 0
+        Me.ComboModSelect.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable
+        Me.ComboModSelect.DropDownHeight = 118
+        Me.ComboModSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboModSelect.DropDownWidth = 121
+        Me.ComboModSelect.Font = New System.Drawing.Font("微软雅黑", 10.0!)
+        Me.ComboModSelect.ForeColor = System.Drawing.Color.FromArgb(CType(CType(222, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.ComboModSelect.FormattingEnabled = True
+        Me.ComboModSelect.Hint = "模型选择"
+        Me.ComboModSelect.IntegralHeight = False
+        Me.ComboModSelect.ItemHeight = 29
+        Me.ComboModSelect.Location = New System.Drawing.Point(36, 263)
+        Me.ComboModSelect.Margin = New System.Windows.Forms.Padding(4)
+        Me.ComboModSelect.MaxDropDownItems = 4
+        Me.ComboModSelect.MouseState = MaterialSkin.MouseState.OUT
+        Me.ComboModSelect.Name = "ComboModSelect"
+        Me.ComboModSelect.Size = New System.Drawing.Size(562, 35)
+        Me.ComboModSelect.StartIndex = 0
+        Me.ComboModSelect.TabIndex = 24
+        Me.ComboModSelect.UseTallSize = False
         '
         'Launch
         '
@@ -460,89 +538,12 @@ Partial Class Login
         Me.PortBox.Size = New System.Drawing.Size(190, 28)
         Me.PortBox.TabIndex = 42
         '
-        'CustomModelInput
-        '
-        Me.CustomModelInput.AllowPromptAsInput = True
-        Me.CustomModelInput.AnimateReadOnly = False
-        Me.CustomModelInput.AsciiOnly = False
-        Me.CustomModelInput.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.CustomModelInput.BeepOnError = False
-        Me.CustomModelInput.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
-        Me.CustomModelInput.Depth = 0
-        Me.CustomModelInput.Font = New System.Drawing.Font("微软雅黑", 10.0!)
-        Me.CustomModelInput.HidePromptOnLeave = False
-        Me.CustomModelInput.HideSelection = True
-        Me.CustomModelInput.Hint = "自定义模型"
-        Me.CustomModelInput.InsertKeyMode = System.Windows.Forms.InsertKeyMode.[Default]
-        Me.CustomModelInput.LeadingIcon = Nothing
-        Me.CustomModelInput.Location = New System.Drawing.Point(36, 263)
-        Me.CustomModelInput.Margin = New System.Windows.Forms.Padding(4)
-        Me.CustomModelInput.Mask = ""
-        Me.CustomModelInput.MaxLength = 32767
-        Me.CustomModelInput.MouseState = MaterialSkin.MouseState.OUT
-        Me.CustomModelInput.Name = "CustomModelInput"
-        Me.CustomModelInput.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.CustomModelInput.PrefixSuffixText = Nothing
-        Me.CustomModelInput.PromptChar = Global.Microsoft.VisualBasic.ChrW(95)
-        Me.CustomModelInput.ReadOnly = False
-        Me.CustomModelInput.RejectInputOnFirstFailure = False
-        Me.CustomModelInput.ResetOnPrompt = True
-        Me.CustomModelInput.ResetOnSpace = True
-        Me.CustomModelInput.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.CustomModelInput.SelectedText = ""
-        Me.CustomModelInput.SelectionLength = 0
-        Me.CustomModelInput.SelectionStart = 0
-        Me.CustomModelInput.ShortcutsEnabled = True
-        Me.CustomModelInput.Size = New System.Drawing.Size(564, 36)
-        Me.CustomModelInput.SkipLiterals = True
-        Me.CustomModelInput.TabIndex = 42
-        Me.CustomModelInput.TabStop = False
-        Me.CustomModelInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Left
-        Me.CustomModelInput.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludeLiterals
-        Me.CustomModelInput.TrailingIcon = Nothing
-        Me.CustomModelInput.UseSystemPasswordChar = False
-        Me.CustomModelInput.UseTallSize = False
-        Me.CustomModelInput.ValidatingType = Nothing
-        Me.CustomModelInput.Visible = False
-        '
-        'SysEnvironment
-        '
-        Me.SysEnvironment.Depth = 0
-        Me.SysEnvironment.Location = New System.Drawing.Point(184, 524)
-        Me.SysEnvironment.Margin = New System.Windows.Forms.Padding(0)
-        Me.SysEnvironment.MouseLocation = New System.Drawing.Point(-1, -1)
-        Me.SysEnvironment.MouseState = MaterialSkin.MouseState.HOVER
-        Me.SysEnvironment.Name = "SysEnvironment"
-        Me.SysEnvironment.ReadOnly = False
-        Me.SysEnvironment.Ripple = True
-        Me.SysEnvironment.Size = New System.Drawing.Size(148, 60)
-        Me.SysEnvironment.TabIndex = 43
-        Me.SysEnvironment.Text = "系统环境"
-        Me.ToolTip1.SetToolTip(Me.SysEnvironment, "每一个完整句子都会生成一次语音，可以显著改善回答延迟问题")
-        Me.SysEnvironment.UseVisualStyleBackColor = True
-        '
-        'CustonModel
-        '
-        Me.CustonModel.Depth = 0
-        Me.CustonModel.Location = New System.Drawing.Point(484, 600)
-        Me.CustonModel.Margin = New System.Windows.Forms.Padding(0)
-        Me.CustonModel.MouseLocation = New System.Drawing.Point(-1, -1)
-        Me.CustonModel.MouseState = MaterialSkin.MouseState.HOVER
-        Me.CustonModel.Name = "CustonModel"
-        Me.CustonModel.ReadOnly = False
-        Me.CustonModel.Ripple = True
-        Me.CustonModel.Size = New System.Drawing.Size(148, 60)
-        Me.CustonModel.TabIndex = 44
-        Me.CustonModel.Text = "自定义模型"
-        Me.ToolTip1.SetToolTip(Me.CustonModel, "每一个完整句子都会生成一次语音，可以显著改善回答延迟问题")
-        Me.CustonModel.UseVisualStyleBackColor = True
-        '
         'Login
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1752, 1807)
+        Me.ClientSize = New System.Drawing.Size(1840, 2031)
         Me.Controls.Add(Me.TextStatus)
         Me.Controls.Add(Me.PortBox)
         Me.Controls.Add(Me.IPBox)

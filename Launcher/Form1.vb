@@ -6,7 +6,7 @@ Public Class Login
     Dim model(), characterName() As String
     Dim apiKey, chatVer, mode, stream, chara, base_url As String
     Dim ip, port As String
-    Dim apiKeyConfig, chatVerConfig, modeConfig, actionBarText, streamConfig, showCommand, charaConfig, showLog, base_url_config, pyrun, SysEnvironmentCon As String
+    Dim apiKeyConfig, chatVerConfig, modeConfig, actionBarText, streamConfig, showCommand, charaConfig, showLog, base_url_config, pyrun, SysEnvironmentCon, enableCustomModel As String
     Dim lastLine As String
     Dim configFile = Application.StartupPath & "/Config/config.ini"
     Dim modelFile = Application.StartupPath & "/Config/model.ini"
@@ -35,9 +35,10 @@ Public Class Login
         base_url_config = ReadConfig("uiconfig", "base_url", configFile)
         pyrun = ReadConfig("uiconfig", "pyrun", configFile)
         SysEnvironmentCon = ReadConfig("uiconfig", "SysEnviron", configFile)
-        If chatVer = "1" Then
+        enableCustomModel = ReadConfig("uiconfig", "CustomModel", configFile)
+        If chatVerConfig = "1" Then
             OptionAPI.Checked = True
-        ElseIf chatVer = "2" Then
+        ElseIf chatVerConfig = "2" Then
             OptionAnthropic.Checked = True
         Else
             OptionGemini.Checked = True
@@ -68,8 +69,25 @@ Public Class Login
         End If
         If pyrun = "True" Then
             CheckNonEXE.Checked = True
+            SysEnvironment.Visible = True
         Else
             CheckNonEXE.Checked = False
+            SysEnvironment.Visible = False
+        End If
+        If SysEnvironmentCon = "True" Then
+            SysEnvironment.Checked = True
+        Else
+            SysEnvironment.Checked = False
+        End If
+        If enableCustomModel = "True" Then
+            CustonModel.Checked = True
+            CustomModelInput.Visible = True
+            CustomModelInput.Text = modeConfig
+            ComboModSelect.Visible = False
+        Else
+            CustonModel.Checked = False
+            CustomModelInput.Visible = False
+            ComboModSelect.Visible = True
         End If
         'End If
 
@@ -243,6 +261,10 @@ Public Class Login
 
     Private Sub GetAPI_Click(sender As Object, e As EventArgs)
         Shell("cmd /c start guide/getapi.html")
+    End Sub
+
+    Private Sub PortBox_TextChanged(sender As Object, e As EventArgs) Handles PortBox.TextChanged
+
     End Sub
 
     Private Sub OptionGemini_CheckedChanged_1(sender As Object, e As EventArgs) Handles OptionGemini.CheckedChanged
@@ -438,6 +460,9 @@ Public Class Login
         chara = " --character " & ComboCharacterSelect.Text
         UpdateCommand()
     End Sub
+    Private Sub CustomModelInput_TextChanged(sender As Object, e As EventArgs) Handles CustomModelInput.TextChanged
+        UpdateCommand()
+    End Sub
 
     Private Sub CheckStream_CheckedChanged(sender As Object, e As EventArgs) Handles CheckStream.CheckedChanged
         If CheckStream.Checked Then
@@ -455,6 +480,24 @@ Public Class Login
     End Sub
 
     Private Sub ChekNonEXE_CheckedChanged(sender As Object, e As EventArgs) Handles CheckNonEXE.CheckedChanged
+        If CheckNonEXE.Checked Then
+            SysEnvironment.Visible = True
+        Else
+            SysEnvironment.Visible = False
+        End If
+        UpdateCommand()
+    End Sub
+    Private Sub CustomModel_CheckedChanged(sender As Object, e As EventArgs) Handles CustonModel.CheckedChanged
+        If CustonModel.Checked Then
+            CustomModelInput.Visible = True
+            ComboModSelect.Visible = False
+        Else
+            CustomModelInput.Visible = False
+            ComboModSelect.Visible = True
+        End If
+        UpdateCommand()
+    End Sub
+    Private Sub SysEnviron_CheckedChanged(sender As Object, e As EventArgs) Handles SysEnvironment.CheckedChanged
         UpdateCommand()
     End Sub
     Private Sub Save_Click(sender As Object, e As EventArgs) Handles Save.Click
@@ -474,8 +517,15 @@ Public Class Login
         If TextBaseUrl.Text = "" Then
             base_url = ""
         End If
+        If CustonModel.Checked Then
+            mode = " --model " + CustomModelInput.Text
+        End If
         If CheckNonEXE.Checked Then
-            para.Text = ".venv/Scripts/python.exe SocketServer.py" & chatVer & apiKey & mode & stream & chara & base_url
+            If SysEnvironment.Checked Then
+                para.Text = "python SocketServer.py" & chatVer & apiKey & mode & stream & chara & base_url
+            Else
+                para.Text = ".venv/Scripts/python.exe SocketServer.py" & chatVer & apiKey & mode & stream & chara & base_url
+            End If
         Else
             para.Text = "SocketServer.exe " & chatVer & apiKey & mode & stream & chara & base_url
         End If
@@ -492,11 +542,17 @@ Public Class Login
 
     Sub SaveConfig()
         'Log("Save all config.")
-        WriteConfig("uiconfig", "chatVer", chatVer, configFile)
+        WriteConfig("uiconfig", "chatVer", chatVerConfig, configFile)
         WriteConfig("uiconfig", "apikey", TextAPIKey.Text, configFile)
-        WriteConfig("uiconfig", "model", ComboModSelect.Text, configFile)
-        WriteConfig("uiconfig", "base_url", TextBaseUrl.Text, configFile)
 
+        WriteConfig("uiconfig", "base_url", TextBaseUrl.Text, configFile)
+        If CustonModel.Checked Then
+            WriteConfig("uiconfig", "CustomModel", "True", configFile)
+            WriteConfig("uiconfig", "model", CustomModelInput.Text, configFile)
+        Else
+            WriteConfig("uiconfig", "CustomModel", "False", configFile)
+            WriteConfig("uiconfig", "model", ComboModSelect.Text, configFile)
+        End If
         If CheckStream.Checked Then
             WriteConfig("uiconfig", "stream", "True", configFile)
         Else
@@ -507,6 +563,12 @@ Public Class Login
             WriteConfig("uiconfig", "pyrun", "True", configFile)
         Else
             WriteConfig("uiconfig", "pyrun", "False", configFile)
+
+        End If
+        If SysEnvironment.Checked Then
+            WriteConfig("uiconfig", "SysEnviron", "True", configFile)
+        Else
+            WriteConfig("uiconfig", "SysEnviron", "False", configFile)
 
         End If
         WriteConfig("uiconfig", "character", ComboCharacterSelect.Text, configFile)
